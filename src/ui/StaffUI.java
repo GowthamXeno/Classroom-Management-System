@@ -37,7 +37,7 @@ public class StaffUI {
                     staffService.viewAndEditStudentDetails();
                     break;
                 case 2:
-                    staffService.resolveFeedback();
+                    staffService.viewAndResolveFeedback();
                     break;
                 case 3:
                     staffService.viewAttendance();

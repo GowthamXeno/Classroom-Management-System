@@ -33,7 +33,7 @@ public class StudentUI {
                     studentService.viewPersonalDetails(id);
                     break;
                 case 2:
-                    studentService.provideFeedback();
+                    studentService.provideFeedback(id);
                     break;
                 case 3:
                     studentService.markAttendance(id);

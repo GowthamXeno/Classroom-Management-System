@@ -1,5 +1,6 @@
 package services;
 
+import models.Feedback;
 import models.Student;
 import utils.CSVUtils;
 
@@ -49,7 +50,17 @@ public class StudentService {
         System.out.println("Student admitted successfully.");
     }
 
-    public void provideFeedback() {
+   public void provideFeedback(String studentId) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your feedback: ");
+        String feedback = scanner.nextLine();
+
+        Feedback newFeedback = new Feedback(studentId, feedback, false);
+        List<Feedback> feedbackList = CSVUtils.readFeedback();
+        feedbackList.add(newFeedback);
+        CSVUtils.writeFeedback(feedbackList);
+
+        System.out.println("Feedback submitted successfully.");
     }
 
     public void markAttendance(String studentId) {

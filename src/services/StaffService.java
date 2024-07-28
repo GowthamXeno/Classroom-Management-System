@@ -1,5 +1,6 @@
 package services;
 
+import models.Feedback;
 import models.Staff;
 import models.Student;
 import utils.CSVUtils;
@@ -7,7 +8,7 @@ import utils.CSVUtils;
 import java.util.List;
 import java.util.Scanner;
 
-public class StaffService {
+public class StaffService extends BaseService{
 
     public Staff authenticate(String id, String dob) {
         List<Staff> staffs = CSVUtils.readStaffs();
@@ -21,12 +22,36 @@ public class StaffService {
 
     public void viewAndEditStudentDetails() {
         List<Student> students = CSVUtils.readStudents();
-        CSVUtils.writeStudents(students);
+        viewAndEditDetails(students, "student");
     }
 
 
 
-    public void resolveFeedback() {
+    public void viewAndResolveFeedback() {
+        List<Feedback> feedbackList = CSVUtils.readFeedback();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Feedback from students:");
+        for (Feedback feedback : feedbackList) {
+            System.out.printf("Student ID: %s, Feedback: %s, Resolved: %s%n", feedback.getStudentId(),
+                    feedback.getFeedback(), feedback.isResolved() ? "Yes" : "No");
+        }
+
+        System.out.print("Enter the ID of the student whose feedback you want to resolve (or 0 to cancel): ");
+        String id = scanner.nextLine();
+
+        if (id.equals("0")) {
+            System.out.println("Operation cancelled.");
+            return;
+        }
+
+        for (Feedback feedback : feedbackList) {
+            if (feedback.getStudentId().equals(id)) {
+                feedback.setResolved(true);
+            }
+        }
+        CSVUtils.writeFeedback(feedbackList);
+        System.out.println("Feedback resolved successfully.");
     }
 
     public void viewAttendance() {

@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static AdminService adminService = new AdminService();
-    private static StudentService studentService = new StudentService();
+    // private static AdminService adminService = new AdminService();
+    // private static StudentService studentService = new StudentService();
 
     public static void main(String[] args) {
         // Initialize admin if not already present
@@ -25,6 +25,7 @@ public class Main {
             System.out.println("3. Student");
             System.out.println("4. Exit");
 
+            System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 

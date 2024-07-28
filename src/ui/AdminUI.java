@@ -1,11 +1,13 @@
 package ui;
 
 import services.AdminService;
+import services.StudentService;
 
 import java.util.Scanner;
 
 public class AdminUI {
     private AdminService adminService = new AdminService();
+    private StudentService studentService = new StudentService();
     private Scanner scanner = new Scanner(System.in);
 
    
@@ -23,7 +25,8 @@ public class AdminUI {
             System.out.println("2. View and Edit Student Details");
             System.out.println("3. Edit Schedules");
             System.out.println("4. Hire New Staff");
-            System.out.println("5. Exit");
+            System.out.println("5. Admit New Student");
+            System.out.println("6. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -42,6 +45,9 @@ public class AdminUI {
                     adminService.hireStaff();
                     break;
                 case 5:
+                    studentService.admitStudent();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Invalid choice. Try again.");

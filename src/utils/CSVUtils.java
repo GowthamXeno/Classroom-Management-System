@@ -3,6 +3,7 @@ package utils;
 import models.Admin;
 import models.Staff;
 import models.Student;
+import models.Feedback;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class CSVUtils {
     private static final String ADMIN_CSV_FILE = "data/admin.csv";
     private static final String STUDENTS_CSV_FILE = "data/students.csv";
     private static final String STAFFS_CSV_FILE = "data/staffs.csv";
+    private static final String FEEDBACK_CSV_FILE = "data/feedback.csv";
 
     // Read a list of Admins from the CSV file
     public static List<Admin> readAdmins() {
@@ -42,6 +44,7 @@ public class CSVUtils {
             e.printStackTrace();
         }
     }
+
 
     // Read a list of Students from the CSV file
     public static List<Student> readStudents() {
@@ -96,6 +99,35 @@ public class CSVUtils {
             for (Staff staff : staffs) {
                 bw.write(String.join(",", staff.getId(), staff.getName(), staff.getDob(), staff.getAge(),
                         staff.getAddress()));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static List<Feedback> readFeedback() {
+        List<Feedback> feedbackList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(FEEDBACK_CSV_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length == 3) {
+                    feedbackList.add(new Feedback(values[0], values[1], Boolean.parseBoolean(values[2])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return feedbackList;
+    }
+
+    // Write a list of Feedback to the CSV file
+    public static void writeFeedback(List<Feedback> feedbackList) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FEEDBACK_CSV_FILE))) {
+            for (Feedback feedback : feedbackList) {
+                bw.write(String.join(",", feedback.getStudentId(), feedback.getFeedback(),
+                        String.valueOf(feedback.isResolved())));
                 bw.newLine();
             }
         } catch (IOException e) {
