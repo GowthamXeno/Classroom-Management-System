@@ -9,6 +9,21 @@ import java.util.Scanner;
 
 public abstract class BaseService {
 
+
+    // Method to delete a student by ID
+    public void deleteStudentById(String studentId) {
+        List<Student> students = CSVUtils.readStudents();
+        students.removeIf(student -> student.getId().equals(studentId));
+        CSVUtils.writeStudents(students);
+    }
+
+    // Method to delete a staff by ID
+    public void deleteStaffById(String staffId) {
+        List<Staff> staffs = CSVUtils.readStaffs();
+        staffs.removeIf(staff -> staff.getId().equals(staffId));
+        CSVUtils.writeStaffs(staffs);
+    }
+    
     // Common method to view and edit details
     public <T> void viewAndEditDetails(List<T> items, String type) {
         if (items.isEmpty()) {
